@@ -5,3 +5,7 @@ git status - просмотреть информацию
 	git add -A или git add name.py
 	git commit -m "Changes"
 	git push
+
+как скомпилировать:
+	pip install pyinstaller - всего один раз для установки
+	pyinstaller -F -w -i"Путь к иконке" main.py 
