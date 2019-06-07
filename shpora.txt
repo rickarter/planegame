@@ -1,0 +1,7 @@
+git pull - получить все файлы
+git status - просмотреть информацию
+
+Как добавить:
+	git add -A или git add name.py
+	git commit -m "Changes"
+	git push
