@@ -5,7 +5,7 @@ from control import Control
 from plane import Plane
 
 # Задаем разрешение экрана
-win = pygame.display.set_mode((500, 500))
+win = pygame.display.set_mode((1440, 900), FULLSCREEN)
 # Задаем название окна
 pygame.display.set_caption("Plane Game")
 

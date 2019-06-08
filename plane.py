@@ -5,8 +5,12 @@ class Plane:
 		# Переменный, хранящие координаты по осям x и y
 		self.x = 10
 		self.y = 10
+
+		# Переменные, хранящие размеры
+		self.height = 60
+		self.width = 60
 		# Переменная хранящая скорость
-		self.speed = 20
+		self.speed = 10
 		# Переменная, которая хранит номер анимации
 		self.anim_count = 0
 		self.color = color
@@ -21,7 +25,7 @@ class Plane:
 		self.plane = pygame.image.load(self.animation[self.anim_count])
 
 		# Список хранящий пули
-		self.bulllets = []
+		self.bullets = []
 
 		# Переманная направления персонажа
 		self.facing = "right"
@@ -44,8 +48,6 @@ class Plane:
 			elif keys[K_a]:
 				self.facing = "left"
 				self.x -= self.speed
-			if keys[K_SPACE]:
-				self.Shoot()
 
 		if self.color == "green":
 			if keys[K_UP]:
@@ -60,8 +62,6 @@ class Plane:
 			elif keys[K_LEFT]:
 				self.facing = "left"
 				self.x -= self.speed
-			if keys[K_LSHIFT]:
-				self.Shoot()
 
 		if self.facing == "up":
 			self.anim_count = 0
@@ -77,12 +77,48 @@ class Plane:
 		# Вывод изображения на экран
 		win.blit(self.plane, (self.x, self.y))
 
-
+		self.Shoot()
 
 	def Shoot(self):
-		pass
+		# Добавляем пулю если их меньше пяти
+		if len(self.bullets) < 5:
+			if self.facing == "up":
+				self.bullets.append(self.Bullet(self.x + self.width / 2, self.y - 10, (255, 0, 0), self.facing))
+			elif self.facing == "right":
+				self.bullets.append(self.Bullet(self.x + self.width + 10, self.y + self.height / 2, (255, 0, 0), self.facing))
+			elif self.facing == "down":
+				self.bullets.append(Bullet(self.x + self.width / 2, self.y + self.height + 10, (255, 0, 0), self.facing))
+			elif self.facing == "left":
+				self.bullets.append(Bullet(self.x - 10, self.y + self.height / 2, (255, 0, 0), self.facing))
 
-	class bulllet:
+		if self.bullets:
+			for bullet in self.bullets:
+				if bullet.facing == "up" and bullet.y > 0:
+					bullet.y -= bullet.velocity
+				else:
+					self.bullets.pop(self.bullets.index(bullet))
+				if bullet.facing == "right" and bullet.x < 1440:
+					bullet.x += bullet.velocity
+				else:
+					self.bullets.pop(self.bullets.index(bullet))
+				if bullet.facing == "down" and bullet.y < 900:
+					bullet.y += bullet.velocity
+				else:
+					self.bullets.pop(self.bullets.index(bullet))
+				if bullet.facing == "left" and bullet.x > 0:
+					bullet.x -= bullet.velocity
+				else:
+					self.bullets.pop(self.bullets.index(bullet))
+
+				# Отрисовываем пулю
+				bullet.Draw()
+
+				
+
+
+
+
+	class Bullet:
 		def __init__(self, x, y, color, facing):
 			# Переменные координаты пули
 			self.x = x
