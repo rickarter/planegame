@@ -5,7 +5,8 @@ class Plane:
 		# Переменный, хранящие координаты по осям x и y
 		self.x = 10
 		self.y = 10
-
+		# Переменная жизней
+		self.health = 100
 		# Переменные, хранящие размеры
 		self.height = 60
 		self.width = 60
@@ -138,6 +139,9 @@ class Plane:
 			else:
 				self.bullets.pop(self.bullets.index(bullet))
 			bullet.Draw(win)
+
+			if plane.x <= bullet.x <= (plane.x + plane.width) and plane.y <= bullet.y <= (plane.y + plane.height):
+				self.health -= 10
 
 
 	class Bullet:
