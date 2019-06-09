@@ -141,10 +141,25 @@ class Plane:
 			bullet.Draw(win)
 
 			if plane.x <= bullet.x <= (plane.x + plane.width) and plane.y <= bullet.y <= (plane.y + plane.height):
-				self.health -= bullet.power
+				plane.health -= bullet.power
+				self.bullets.pop(self.bullets.index(bullet))
 
-	def Health(self, win):
-		pass
+	def Health(self, win, color):
+		if self.facing == "up":
+			pygame.draw.rect(win, color, (self.x, self.y + self.height + 5, 60, 6), 1)
+			pygame.draw.rect(win, color, (self.x, self.y + self.height + 5, 60 / 100 * self.health, 6))
+		if self.facing == "right":
+			pygame.draw.rect(win, color, (self.x - 11, self.y, 6, 60), 1)
+			pygame.draw.rect(win, color, (self.x - 11, self.y, 6, 60 / 100 * self.health))
+		if self.facing == "down":
+			pygame.draw.rect(win , color, (self.x, self.y - 11, 60, 6), 1)
+			pygame.draw.rect(win , color, (self.x, self.y - 11, 60 / 100 * self.health, 6))
+		if self.facing == "left":
+			pygame.draw.rect(win, color, (self.x + self.width + 11, self.y, 6, 60), 1)
+			pygame.draw.rect(win, color, (self.x + self.width + 11, self.y, 6, 60 / 100 * self.health))
+
+		if self.health <= 0:
+			self.health = 100
 
 
 	class Bullet:
@@ -162,7 +177,7 @@ class Plane:
 			self.radius = 6
 			# Перемиенная мощности пули
 			self.power = 10
-			
+
 		# Функция отрисовки пули
 		def Draw(self, win):
 			# pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)

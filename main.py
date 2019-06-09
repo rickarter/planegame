@@ -7,6 +7,7 @@ from plane import Plane
 
 # Задаем разрешение экрана
 win = pygame.display.set_mode((1440, 900), FULLSCREEN)
+# win = pygame.display.set_mode((500, 500))
 # Задаем название окна
 pygame.display.set_caption("Plane Game")
 
@@ -23,8 +24,10 @@ while control.flag_game:
 
 	plane1.Animation(win)
 	plane1.Shoot(win, plane2)
+	plane1.Health(win, (243, 224, 119))
 
 	plane2.Animation(win)
 	plane2.Shoot(win, plane1)
+	plane2.Health(win, (119, 200, 176))
 
 exit()
