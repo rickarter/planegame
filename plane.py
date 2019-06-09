@@ -143,6 +143,9 @@ class Plane:
 			if plane.x <= bullet.x <= (plane.x + plane.width) and plane.y <= bullet.y <= (plane.y + plane.height):
 				self.health -= 10
 
+	def Health(self, win):
+		pass
+
 
 	class Bullet:
 		def __init__(self, x, y, color, facing):

@@ -1,6 +1,6 @@
 # Подключаем библиотеки
 import pygame
-from pygame.locals import *
+from pygame.locals import * 
 from control import Control
 from plane import Plane
 
@@ -19,6 +19,7 @@ plane2 = Plane("green")
 while control.flag_game: 
 	control.Control()
 	control.DrawBackground(win)
+	
 	plane1.Animation(win)
 	plane1.Shoot(win, plane2)
 
