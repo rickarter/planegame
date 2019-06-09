@@ -141,7 +141,7 @@ class Plane:
 			bullet.Draw(win)
 
 			if plane.x <= bullet.x <= (plane.x + plane.width) and plane.y <= bullet.y <= (plane.y + plane.height):
-				self.health -= 10
+				self.health -= bullet.power
 
 	def Health(self, win):
 		pass
@@ -160,7 +160,9 @@ class Plane:
 			self.facing = facing
 			# Переменная радиуса пули
 			self.radius = 6
-
+			# Перемиенная мощности пули
+			self.power = 10
+			
 		# Функция отрисовки пули
 		def Draw(self, win):
 			# pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
