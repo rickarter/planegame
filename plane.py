@@ -81,10 +81,10 @@ class Plane:
 		win.blit(self.plane, (self.x, self.y))
 
 
-	def Shoot(self, win):
+	def Shoot(self, win, plane):
 		if self.color == "yellow":
 			if self.keys[K_SPACE]:
-			# Добавляем пулю если их меньше пяти
+			# Добавляем пулю если их меньше восьми
 				if len(self.bullets) < 8:
 					if self.facing == "up":
 						self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 2), self.y, (255, 0, 0), self.facing))
@@ -107,6 +107,24 @@ class Plane:
 					elif self.facing == "left":
 						self.bullets.append(self.Bullet(round(self.x - 10), round(self.y + self.height / 2), (255, 0, 0), self.facing))'''
 
+		if self.color == "green":
+			if self.keys[K_RSHIFT]:
+			# Добавляем пулю если их меньше восьми
+				if len(self.bullets) < 8:
+					if self.facing == "up":
+						self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 2), self.y, (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(round(self.x + self.width - self.width / 4 - 2), self.y, (255, 0, 0), self.facing))
+					if self.facing == "right":
+						self.bullets.append(self.Bullet(self.x + self.width, round(self.y + self.height / 4), (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(self.x + self.width, round(self.y + self.height - self.height / 4 - 3), (255, 0, 0), self.facing))
+					if self.facing == "down":
+						self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 3), self.y + self.height, (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(round(self.x + self.width - self.width / 4 - 2), self.y + self.height, (255, 0, 0), self.facing))
+					if self.facing == "left":
+						self.bullets.append(self.Bullet(self.x, round(self.y + self.height / 4), (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(self.x, round(self.y + self.height - self.height / 4 - 3), (255, 0, 0), self.facing))
+
+		# Проверка каждой пули, её отрисовка и проверка на попадание
 		for bullet in self.bullets:
 			if 0 < bullet.x < 1440 and 0 < bullet.y < 900:
 				if bullet.facing == "up":
@@ -117,10 +135,8 @@ class Plane:
 					bullet.y += bullet.velocity
 				if bullet.facing == "left":
 					bullet.x -= bullet.velocity
-
 			else:
 				self.bullets.pop(self.bullets.index(bullet))
-
 			bullet.Draw(win)
 
 
