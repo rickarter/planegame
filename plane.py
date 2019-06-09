@@ -30,36 +30,39 @@ class Plane:
 		# Переманная направления персонажа
 		self.facing = "right"
 
+		# Список хранящицй нажатые кнопки
+		self.keys = []
+
 	# Функция анимации самолета
 	def Animation(self, win):
-		keys = pygame.key.get_pressed()
+		self.keys = pygame.key.get_pressed()
 
 		# Смена анимаций при нажатии клавиш
 		if self.color == "yellow":
-			if keys[K_w]:
+			if self.keys[K_w]:
 				self.facing = "up"
 				self.y -= self.speed
-			elif keys[K_d]:
+			elif self.keys[K_d]:
 				self.facing = "right"
 				self.x += self.speed
-			elif keys[K_s]:
+			elif self.keys[K_s]:
 				self.facing = "down"
 				self.y += self.speed
-			elif keys[K_a]:
+			elif self.keys[K_a]:
 				self.facing = "left"
 				self.x -= self.speed
 
 		if self.color == "green":
-			if keys[K_UP]:
+			if self.keys[K_UP]:
 				self.facing = "up"
 				self.y -= self.speed
-			elif keys[K_RIGHT]:
+			elif self.keys[K_RIGHT]:
 				self.facing = "right"
 				self.x += self.speed
-			elif keys[K_DOWN]:
+			elif self.keys[K_DOWN]:
 				self.facing = "down"
 				self.y += self.speed
-			elif keys[K_LEFT]:
+			elif self.keys[K_LEFT]:
 				self.facing = "left"
 				self.x -= self.speed
 
@@ -77,45 +80,48 @@ class Plane:
 		# Вывод изображения на экран
 		win.blit(self.plane, (self.x, self.y))
 
-		self.Shoot()
 
-	def Shoot(self):
-		# Добавляем пулю если их меньше пяти
-		if len(self.bullets) < 5:
-			if self.facing == "up":
-				self.bullets.append(self.Bullet(self.x + self.width / 2, self.y - 10, (255, 0, 0), self.facing))
-			elif self.facing == "right":
-				self.bullets.append(self.Bullet(self.x + self.width + 10, self.y + self.height / 2, (255, 0, 0), self.facing))
-			elif self.facing == "down":
-				self.bullets.append(Bullet(self.x + self.width / 2, self.y + self.height + 10, (255, 0, 0), self.facing))
-			elif self.facing == "left":
-				self.bullets.append(Bullet(self.x - 10, self.y + self.height / 2, (255, 0, 0), self.facing))
+	def Shoot(self, win):
+		if self.color == "yellow":
+			if self.keys[K_SPACE]:
+			# Добавляем пулю если их меньше пяти
+				if len(self.bullets) < 8:
+					if self.facing == "up":
+						self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 2), self.y, (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(round(self.x + self.width - self.width / 4 - 2), self.y, (255, 0, 0), self.facing))
+					if self.facing == "right":
+						self.bullets.append(self.Bullet(self.x + self.width, round(self.y + self.height / 4), (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(self.x + self.width, round(self.y + self.height - self.height / 4 - 3), (255, 0, 0), self.facing))
+					if self.facing == "down":
+						self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 3), self.y + self.height, (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(round(self.x + self.width - self.width / 4 - 2), self.y + self.height, (255, 0, 0), self.facing))
+					if self.facing == "left":
+						self.bullets.append(self.Bullet(self.x, round(self.y + self.height / 4), (255, 0, 0), self.facing))
+						self.bullets.append(self.Bullet(self.x, round(self.y + self.height - self.height / 4 - 3), (255, 0, 0), self.facing))
+					'''if self.facing == "up":
+						self.bullets.append(self.Bullet(round(self.x + self.width / 2), round(self.y - 10), (255, 0, 0), self.facing))
+					elif self.facing == "right":
+						self.bullets.append(self.Bullet(round(self.x + self.width + 10), round(self.y + self.height / 2), (255, 0, 0), self.facing))
+					elif self.facing == "down":
+						self.bullets.append(self.Bullet(round(self.x + self.width / 2), round(self.y + self.height + 10), (255, 0, 0), self.facing))
+					elif self.facing == "left":
+						self.bullets.append(self.Bullet(round(self.x - 10), round(self.y + self.height / 2), (255, 0, 0), self.facing))'''
 
-		if self.bullets:
-			for bullet in self.bullets:
-				if bullet.facing == "up" and bullet.y > 0:
+		for bullet in self.bullets:
+			if 0 < bullet.x < 1440 and 0 < bullet.y < 900:
+				if bullet.facing == "up":
 					bullet.y -= bullet.velocity
-				else:
-					self.bullets.pop(self.bullets.index(bullet))
-				if bullet.facing == "right" and bullet.x < 1440:
+				if bullet.facing == "right":
 					bullet.x += bullet.velocity
-				else:
-					self.bullets.pop(self.bullets.index(bullet))
-				if bullet.facing == "down" and bullet.y < 900:
+				if bullet.facing == "down":
 					bullet.y += bullet.velocity
-				else:
-					self.bullets.pop(self.bullets.index(bullet))
-				if bullet.facing == "left" and bullet.x > 0:
+				if bullet.facing == "left":
 					bullet.x -= bullet.velocity
-				else:
-					self.bullets.pop(self.bullets.index(bullet))
 
-				# Отрисовываем пулю
-				bullet.Draw()
+			else:
+				self.bullets.pop(self.bullets.index(bullet))
 
-				
-
-
+			bullet.Draw(win)
 
 
 	class Bullet:
@@ -124,14 +130,18 @@ class Plane:
 			self.x = x
 			self.y = y
 			# Переменная скорости пули
-			self.velocity = 12
+			self.velocity = 20
 			# Переменная цвета пули
 			self.color = color
 			# Переменная направления пули
 			self.facing = facing
 			# Переменная радиуса пули
-			self.radius = 15
+			self.radius = 6
 
 		# Функция отрисовки пули
 		def Draw(self, win):
-			pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+			# pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+			if self.facing == "up" or self.facing == "down":
+				pygame.draw.rect(win, self.color, (self.x, self.y, 4, 10))
+			if self.facing == "right" or self.facing == "left":
+				pygame.draw.rect(win, self.color, (self.x, self.y, 10, 4))

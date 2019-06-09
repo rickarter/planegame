@@ -13,11 +13,16 @@ pygame.display.set_caption("Plane Game")
 control = Control()
 # Переменные типа Plane
 plane1 = Plane("yellow")
+plane2 = Plane("green")
 
 
 while control.flag_game: 
 	control.Control()
 	control.DrawBackground(win)
 	plane1.Animation(win)
+	plane1.Shoot(win)
+
+	# plane2.Animation(win)
+	# plane2.Shoot(win)
 
 exit()
