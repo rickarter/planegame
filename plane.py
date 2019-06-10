@@ -141,7 +141,8 @@ class Plane:
 			bullet.Draw(win)
 
 			if plane.x <= bullet.x <= (plane.x + plane.width) and plane.y <= bullet.y <= (plane.y + plane.height):
-				plane.health -= bullet.power
+				if plane.health > 0:
+					plane.health -= bullet.power
 				self.bullets.pop(self.bullets.index(bullet))
 
 	def Health(self, win, color):
@@ -158,8 +159,8 @@ class Plane:
 			pygame.draw.rect(win, color, (self.x + self.width + 11, self.y, 6, 60), 1)
 			pygame.draw.rect(win, color, (self.x + self.width + 11, self.y, 6, 60 / 100 * self.health))
 
-		if self.health <= 0:
-			self.health = 100
+		if self.health < 0:
+			self.health = 0
 
 
 	class Bullet:
