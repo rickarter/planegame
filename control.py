@@ -6,6 +6,8 @@ class Control:
 		self.flag_game = True
 		# Создаем таймер
 		self.timer = pygame.time.Clock()
+		# Картинка фона
+		self.background = pygame.image.load("background.JPG")
 
 	def Control(self):
 		# Ограничиваем игру в 60 фпс
@@ -23,4 +25,5 @@ class Control:
 
 	# Функция, отрисовывающая задний фон
 	def DrawBackground(self, win):
-		win.fill((0, 0, 0))
+		# win.fill((0, 0, 0))
+		win.blit(self.background, (0, 0))

@@ -18,16 +18,18 @@ plane1 = Plane("yellow")
 plane2 = Plane("green")
 
 
-while control.flag_game: 
+while control.flag_game:
 	control.Control()
 	control.DrawBackground(win)
 
 	plane1.Animation(win)
 	plane1.Shoot(win, plane2)
 	plane1.Health(win, (243, 224, 119))
+	# plane1.Fuel(win, (243, 224, 119))
 
 	plane2.Animation(win)
 	plane2.Shoot(win, plane1)
 	plane2.Health(win, (119, 200, 176))
+	# plane2.Fuel(win, (119, 200, 176))
 
 exit()
