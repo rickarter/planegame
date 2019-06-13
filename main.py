@@ -6,6 +6,7 @@ from control import Control
 from plane import Plane
 from fuel import Fuel
 from bullet import Bullet
+from gui import GUI
 
 # Задаем разрешение экрана
 win = pygame.display.set_mode((1440, 900), FULLSCREEN)
@@ -18,6 +19,8 @@ control = Control()
 # Объекты типа Plane
 plane1 = Plane("yellow")
 plane2 = Plane("green")
+# Объект типа GUI
+gui = GUI()
 
 # Объекты типа Fuel
 fuels = []
@@ -27,17 +30,17 @@ for i in range(0, 2):
 bullets = []
 
 for i in range(0, 10):
-	bullets.append(Bullet)
+	bullets.append(Bullet())
 
 
+	# plane1.Health(win, (243, 224, 119))
+	plane1.Fuel(win, (243, 224, 119))
 while control.flag_game: 
 	control.Control()
 	control.DrawBackground(win)
 
 	plane1.Animation(win)
 	plane1.Shoot(win, plane2)
-	# plane1.Health(win, (243, 224, 119))
-	plane1.Fuel(win, (243, 224, 119))
 
 	plane2.Animation(win)
 	plane2.Shoot(win, plane1)
@@ -49,5 +52,8 @@ while control.flag_game:
 
 	for bullet in bullets:
 		bullet.Draw(win, plane1, plane2)
+
+
+	gui.Draw(win, plane1, plane2)
 
 exit()

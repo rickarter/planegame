@@ -15,7 +15,7 @@ class Plane:
 		self.height = 60
 		self.width = 60
 		# Переменная кол-ва патронов
-		self.bullet_count = 0
+		self.bullets_count = 0
 		# Переменная хранящая скорость
 		self.speed = 10
 		# Переменная, которая хранит номер анимации
@@ -107,7 +107,7 @@ class Plane:
 			if self.color == "yellow":
 				if self.keys[K_SPACE]:
 				# Добавляем пулю если их меньше восьми
-					if len(self.bullets) < 8:
+					if len(self.bullets) < self.bullets_count:
 						if self.facing == "up":
 							self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 2), self.y, self.tcolor, self.facing))
 							self.bullets.append(self.Bullet(round(self.x + self.width - self.width / 4 - 2), self.y, self.tcolor, self.facing))
@@ -132,7 +132,7 @@ class Plane:
 			if self.color == "green":
 				if self.keys[K_RSHIFT]:
 				# Добавляем пулю если их меньше восьми
-					if len(self.bullets) < 8:
+					if len(self.bullets) < self.bullets_count:
 						if self.facing == "up":
 							self.bullets.append(self.Bullet(round(self.x + self.width / 4 - 2), self.y, self.tcolor, self.facing))
 							self.bullets.append(self.Bullet(round(self.x + self.width - self.width / 4 - 2), self.y, self.tcolor, self.facing))
