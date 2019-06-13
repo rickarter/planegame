@@ -21,8 +21,13 @@ plane2 = Plane("green")
 
 # Объекты типа Fuel
 fuels = []
-for i in range(0, 5):
+for i in range(0, 2):
 	fuels.append(Fuel())
+# Объекты типа Bullet
+bullets = []
+
+for i in range(0, 10):
+	bullets.append(Bullet)
 
 
 while control.flag_game: 
@@ -41,5 +46,8 @@ while control.flag_game:
 
 	for fuel in fuels:
 		fuel.Draw(win, plane1, plane2)
+
+	for bullet in bullets:
+		bullet.Draw(win, plane1, plane2)
 
 exit()

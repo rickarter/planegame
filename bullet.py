@@ -3,8 +3,8 @@ import pygame
 class Bullet:
 	def __init__(self):
 		# Переменные ширины и высоты
-		self.height = 22
-		self.width = 22
+		self.height = 35
+		self.width = 35
 		# Переменные координат
 		self.x = random.randint(0, 1440 - self.width)
 		self.y = random.randint(0, 900 - self.height)

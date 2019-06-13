@@ -4,13 +4,13 @@ import random
 class Fuel:
 	def __init__(self):
 		# Переменные ширины и высоты топлива
-		self.height = 22
-		self.width = 22
+		self.height = 35
+		self.width = 35
 		# Переменные координат топлива
 		self.x = random.randint(0, 1440 - self.width)
 		self.y = random.randint(0, 900 - self.height)
 		# Изображение топлива 
-		self.fuel = pygame.image.load("fuel.png")
+		self.fuel = pygame.image.load("bigfuel.png")
 
 
 	'''def Draw(self, win, plane1, plane2):
