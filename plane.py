@@ -187,7 +187,7 @@ class Plane:
 		if self.health < 0:
 			self.health = 0
 
-	def Fuel(self, win, color):
+	'''def Fuel(self, win, color):
 		if self.facing == "up":
 			pygame.draw.rect(win, color, (self.x, self.y + self.height + 5, 60, 6), 1)
 			if self.ifuel > 0:
@@ -211,6 +211,19 @@ class Plane:
 			self.bfuel = False
 		else:
 			self.speed = 10
+
+		if self.ifuel > 100:
+			self.ifuel = 100'''
+
+	def Fuel(self):
+		if self.ifuel <= 0:
+			self.speed = 0
+			self.ifuel = 0
+			self.bfuel = False
+
+		else:
+			self.speed = 10
+			self.bfuel = True
 
 		if self.ifuel > 100:
 			self.ifuel = 100

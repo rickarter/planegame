@@ -7,7 +7,8 @@ class Control:
 		# Создаем таймер
 		self.timer = pygame.time.Clock()
 		# Картинка фона
-		self.background = pygame.image.load("background.JPG")
+		# self.background = pygame.image.load("background.JPG")
+		self.background = pygame.image.load("back.png")
 
 	def Control(self):
 		# Ограничиваем игру в 60 фпс
