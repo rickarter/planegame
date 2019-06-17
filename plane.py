@@ -166,7 +166,7 @@ class Plane:
 					plane.health -= bullet.power
 				self.bullets.pop(self.bullets.index(bullet))
 
-	def Health(self, win, color):
+	'''def Health(self, win, color):
 		if self.facing == "up":
 			pygame.draw.rect(win, color, (self.x, self.y + self.height + 5, 60, 6), 1)
 			if self.health > 0:
@@ -185,7 +185,7 @@ class Plane:
 				pygame.draw.rect(win, color, (self.x + self.width + 11, self.y, 6, 60 / 100 * self.health))
 
 		if self.health < 0:
-			self.health = 0
+			self.health = 0'''
 
 	'''def Fuel(self, win, color):
 		if self.facing == "up":
@@ -214,6 +214,11 @@ class Plane:
 
 		if self.ifuel > 100:
 			self.ifuel = 100'''
+	def Health(self):
+		if self.health > 100:
+			self.health = 100
+		if self.health < 0:
+			self.health = 0
 
 	def Fuel(self):
 		if self.ifuel <= 0:
