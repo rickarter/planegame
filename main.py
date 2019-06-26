@@ -32,7 +32,7 @@ bullets = []
 for i in range(0, 10):
 	bullets.append(Bullet())
 # Объекты типа Heart
-hearts = []
+hearts = [] 
 for i in range(0, 2):
 	hearts.append(Heart())
 
@@ -43,14 +43,17 @@ while control.flag_game:
 	plane1.Animation(win)
 	plane1.Shoot(win, plane2)
 	plane1.Fuel()
-	plane1.Health()
+	plane1.Health(win, control)
 	# plane1.Health(win, (243, 224, 119))
 	# plane1.Fuel(win, (243, 224, 119))
+	if plane1.bexplosion:
+		plane1.Explosion(win, control)
 
 	plane2.Animation(win)
 	plane2.Shoot(win, plane1)
 	plane2.Fuel()
-	plane2.Health()
+	plane2.Health(win, control)
+
 	# plane2.Health(win, (119, 200, 176))
 	# plane2.Fuel(win, (119, 200, 176))
 

@@ -1,12 +1,13 @@
-import pygame
-import random
+import pygame, random, threading
+
 from pygame.locals import *
 class Plane:
 	def __init__(self, color):
 		# Переменный, хранящие координаты по осям x и y
 		self.x = 10
 		self.y = 10
-		# Переменная жизней
+		# Переменная жизней(Int, Bul)
+		self.bhealth = True
 		self.health = 100
 		# Переменная топлива(Int, Bul)
 		self.ifuel = 100
@@ -45,6 +46,17 @@ class Plane:
 
 		# Список хранящицй нажатые кнопки
 		self.keys = []
+
+		# Булевая переменная взрыва
+		self.bexplosion = False
+		# Счетчик взрыва
+		self.explosion_count = 0
+		# Изображения взрыва
+		self.explosion0 = pygame.transform.scale(pygame.image.load("explosion.png"), (80, 80))
+		self.explosion1 = pygame.transform.scale(pygame.image.load("explosion.png"), (90, 90))
+		self.explosion2 = pygame.transform.scale(pygame.image.load("explosion.png"), (100, 100))
+
+		self.explosions = (self.explosion0, self.explosion1, self.explosion2)
 
 	# Функция анимации самолета
 	def Animation(self, win):
@@ -99,7 +111,9 @@ class Plane:
 		# Загрузка изображения в переменную
 		self.plane = pygame.image.load(self.animation[self.anim_count])
 		# Вывод изображения на экран
-		win.blit(self.plane, (self.x, self.y))
+
+		if self.bhealth:
+			win.blit(self.plane, (self.x, self.y))
 
 
 	def Shoot(self, win, plane):
@@ -214,14 +228,15 @@ class Plane:
 
 		if self.ifuel > 100:
 			self.ifuel = 100'''
-	def Health(self):
+	def Health(self, win, control):
 		if self.health > 100:
 			self.health = 100
-		if self.health < 0:
+		if self.health <= 0:
 			self.health = 0
+			self.Explosion(win, control)
 
 	def Fuel(self):
-		if self.ifuel <= 0:
+		'''if self.ifuel <= 0:
 			self.speed = 0
 			self.ifuel = 0
 			self.bfuel = False
@@ -231,9 +246,35 @@ class Plane:
 			self.bfuel = True
 
 		if self.ifuel > 100:
-			self.ifuel = 100
+			self.ifuel = 100'''
 
+		if self.ifuel <= 0:
+			self.speed = 0
+			self.ifuel = 0
+			self.bfuel = False
 
+		else:
+			self.speed = 10
+			self.bfuel = True
+
+	def Explosion(self, win, control):
+		'''if self.health == 0:
+			win.blit(self.explosion0, (self.x, self.y))
+
+			win.blit(self.explosion1, (self.x, self.y))
+
+			win.blit(self.explosion2, (self.x, self.y))'''
+		if not control.flag_game:
+			return
+
+		win.blit(self.explosions[self.explosion_count], (self.x, self.y))
+		if self.explosion_count < 3:
+			self.explosion_count += 1
+		else:
+			return
+
+		threading.Timer(1, self.Explosion).start()
+			
 	class Bullet:
 		def __init__(self, x, y, color, facing):
 			# Переменные координаты пули

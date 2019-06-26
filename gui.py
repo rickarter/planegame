@@ -43,4 +43,4 @@ class GUI:
 		win.blit(self.fuel_image, (1440 - self.plane_width - self.fuel_width - 5, 35))
 		pygame.draw.rect(win, (243, 224, 119), (1440 - self.plane_width - 150 - self.fuel_width - 15, 50, 150, 10), 1)
 		if plane1.ifuel > 0:
-			pygame.draw.rect(win, (243, 224, 119), (1440 - self.plane_width - 150 - self.fuel_width - 15, 50, 150 / 100 * plane2.ifuel,10))
+			pygame.draw.rect(win, (243, 224, 119), (1440 - self.plane_width - 150 - self.fuel_width - 15, 50, 150 / 100 * plane2.ifuel, 10))
